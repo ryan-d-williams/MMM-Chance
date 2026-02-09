@@ -1,0 +1,33 @@
+{
+  "name": "MMM-Chance",
+  "version": "1.0.0",
+  "description": "Random Chance for MagicMirror",
+  "main": "MMM-Chance.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryan-d-williams/MMM-Chance.git"
+  },
+  "keywords": [
+    "MagicMirror",
+    "Module",
+    "Random",
+    "Chance",
+    "Coin Flip",
+	"Dice Roll",
+	"Random Number",
+	"Random Choice",
+	"Random Outcome"
+  ],
+  "author": "ryan-d-williams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryan-d-williams/MMM-Chance/issues"
+  },
+  "homepage": "https://github.com/ryan-d-williams/MMM-Chance#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0",
+    "prettier": "3.3.3"
+  }
+}

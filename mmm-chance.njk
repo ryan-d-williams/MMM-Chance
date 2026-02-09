@@ -1,0 +1,21 @@
+{% import "chance-macros.njk" as ui %}
+
+<div id="{{ view.domId }}" class="root{% if view.isResult %} is-result{% endif %}{% if view.compact %} compact{% endif %}{% if view.flatCoin %} coin-flat{% endif %}">
+  <div class="stage">
+    {{ ui.renderToken(view.token) }}
+  </div>
+
+  <div class="buttonRow">
+    {% for button in view.buttons %}
+      {{ ui.renderButton(button) }}
+    {% endfor %}
+    <button
+      type="button"
+      class="btn btn-reset"
+      data-action-id="reset"
+      {% if not view.isResult %}disabled{% endif %}
+    >
+      Reset
+    </button>
+  </div>
+</div>

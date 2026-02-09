@@ -1,0 +1,23 @@
+{% macro renderButton(button) %}
+  <button
+    type="button"
+    class="btn{% if button.className %} {{ button.className }}{% endif %}"
+    data-action-id="{{ button.id }}"
+  >
+    {{ button.label }}
+  </button>
+{% endmacro %}
+
+{% macro renderToken(token) %}
+  <div class="tokenWrap mode-{{ token.mode }}{% if token.isAnimating %} animating{% endif %}">
+    <div class="coin" role="img" aria-label="{{ token.ariaLabel }}">
+      <svg class="tokenSvg" viewBox="0 0 100 100">
+        <use href="{{ token.spriteUrl }}#{{ token.symbolId }}" xlink:href="{{ token.spriteUrl }}#{{ token.symbolId }}"></use>
+      </svg>
+    </div>
+
+    <div class="dieFace" role="img" aria-label="{{ token.ariaLabel }}">
+      <div class="dieValue">{{ token.overlayText }}</div>
+    </div>
+  </div>
+{% endmacro %}
