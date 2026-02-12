@@ -48,9 +48,11 @@ Module.register("MMM-Chance", {
 		this.frameInterval = null;
 		this.endTimeout = null;
 		this.autoResetTimeout = null;
+		this.lastTouchTime = 0;
 
 		this.boundRoot = null;
 		this.onRootClick = this.onRootClick.bind(this);
+		this.onRootTouchEnd = this.onRootTouchEnd.bind(this);
 	},
 
 	getStyles: function () {
@@ -126,20 +128,35 @@ Module.register("MMM-Chance", {
 
 		if (this.boundRoot) {
 			this.boundRoot.removeEventListener("click", this.onRootClick);
+			this.boundRoot.removeEventListener("touchend", this.onRootTouchEnd);
 		}
 
 		root.addEventListener("click", this.onRootClick);
+		root.addEventListener("touchend", this.onRootTouchEnd, { passive: false });
 		this.boundRoot = root;
 	},
 
 	unbindUiEvents: function () {
 		if (this.boundRoot) {
 			this.boundRoot.removeEventListener("click", this.onRootClick);
+			this.boundRoot.removeEventListener("touchend", this.onRootTouchEnd);
 			this.boundRoot = null;
 		}
 	},
 
+	onRootTouchEnd: function (event) {
+		if (event.cancelable) {
+			event.preventDefault();
+		}
+		this.lastTouchTime = event.timeStamp;
+		this.onRootClick(event);
+	},
+
 	onRootClick: function (event) {
+		if (event.type === "click" && this.lastTouchTime && (event.timeStamp - this.lastTouchTime) < 750) {
+			return;
+		}
+
 		const button = event.target.closest(".btn[data-action-id]");
 		if (!button || !this.boundRoot || !this.boundRoot.contains(button)) {
 			return;
@@ -302,6 +319,11 @@ Module.register("MMM-Chance", {
 	suspend: function () {
 		this.stopAnimation();
 		this.unbindUiEvents();
+	},
+
+	resume: function () {
+		this.bindUiEvents();
+		this.syncView();
 	}
 });
 
